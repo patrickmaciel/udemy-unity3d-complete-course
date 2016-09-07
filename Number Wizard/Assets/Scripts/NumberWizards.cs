@@ -3,9 +3,9 @@ using System.Collections;
 
 public class NumberWizards : MonoBehaviour
 {
-    int max = 1000;
-    int min = 1;
-    int guess = 500;
+    int max;
+    int min;
+    int guess;
         
     // Use this for initialization
     void Start()
@@ -15,8 +15,11 @@ public class NumberWizards : MonoBehaviour
 
     void StartGame()
     {
-        max += 1;
+        max = 1000;
+        min = 1;
+        guess = 500;
 
+        print("============================");
         print("Welcome to the Number Wizard");
         print("Pick a number in your head, but don't tell me!");
 
@@ -25,6 +28,8 @@ public class NumberWizards : MonoBehaviour
 
         print("Is the number higher or lower than " + guess + "?");
         print("Up = higher, down = lower, return = equals.");
+
+        max += 1;
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class NumberWizards : MonoBehaviour
         } else if (Input.GetKeyDown(KeyCode.Return))
         {
             print("I Won!");
+            StartGame();
         }
 
     }
