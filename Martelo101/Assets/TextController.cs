@@ -53,6 +53,7 @@ public class TextController : MonoBehaviour {
         else if (myState == States.cenario_6) { state_cenario_6(); }
     }
 
+    #region States handler methods
     void change_state(States state)
     {
         myState = state;
@@ -325,5 +326,5 @@ public class TextController : MonoBehaviour {
             change_state(States.cenario_1);
         }
     }
-
+    #endregion
 }
