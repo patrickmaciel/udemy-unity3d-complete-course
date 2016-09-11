@@ -16,10 +16,19 @@ public class LevelManager : MonoBehaviour {
     public void LoadLevel(string name)
     {
         Debug.Log("Level load requested for: " + name);
+        Application.LoadLevel(name);
+        // SceneManager.LoadScene
     }
 
     public void QuitRequest()
     {
         Debug.Log("See you soon!");
+        Application.Quit();
+    }
+
+    public void ReturnToStart()
+    {
+        Application.LoadLevel("Start");
+        // SceneManager.LoadScene
     }
 }
