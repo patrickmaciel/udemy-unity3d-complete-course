@@ -320,9 +320,10 @@ public class TextController : MonoBehaviour {
                     "martelo de cristal no bug anterior, que por sinal não foi descoberto por completo.\n\n" +
                     "Passaram a noite então, instalando o aplicativo em 1000 tablets.No final da noite, comeram uma pizza e viveram felizes para sempre.";
 
+        text.fontSize = 19;
+
         if (Input.GetKeyDown(KeyCode.J))
         {
-            text.fontSize = 24;
             change_state(States.cenario_1);
         }
     }
