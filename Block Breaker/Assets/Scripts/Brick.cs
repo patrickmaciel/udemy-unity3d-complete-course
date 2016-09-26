@@ -4,7 +4,7 @@ using System.Collections;
 public class Brick : MonoBehaviour {
 
     public int maxHits;
-    public int timesHit;
+    private int timesHit;
     private LevelManager levelManager;
 
 	// Use this for initialization
@@ -25,6 +25,7 @@ public class Brick : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        // DEATHO (pegar audio do youtube)
         timesHit++;
 
         if (timesHit >= maxHits)
