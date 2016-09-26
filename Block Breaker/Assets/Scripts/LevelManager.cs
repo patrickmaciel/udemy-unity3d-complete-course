@@ -32,4 +32,9 @@ public class LevelManager : MonoBehaviour {
         Application.LoadLevel("Start");
         // SceneManager.LoadScene
     }
+
+    public void LoadNextLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel + 1);
+    }
 }
