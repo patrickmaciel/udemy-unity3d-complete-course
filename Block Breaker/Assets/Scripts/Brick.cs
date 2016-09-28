@@ -27,6 +27,7 @@ public class Brick : MonoBehaviour {
     {
         // DEATHO (pegar audio do youtube)
         timesHit++;
+        // this.GetComponent<SpriteRenderer>().sprite =  
 
         if (timesHit >= maxHits)
         {
