@@ -4,10 +4,12 @@ using System.Collections;
 public class Brick : MonoBehaviour {
 
     public Sprite[] hitSprites = new Sprite[2];
+    public static int breakableCount = 0;
+
     private int maxHits;
     private int timesHit;
     private LevelManager levelManager;
-
+    
 	// Use this for initialization
 	void Start () {
         levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -18,6 +20,8 @@ public class Brick : MonoBehaviour {
             Random.Range(0f, 1f),
             Random.Range(0f, 1f),
             Random.Range(0f, 1f));
+
+        breakableCount += (this.tag == "Breakable") ? 1 : 0;
     }
 	
 	// Update is called once per frame
@@ -39,7 +43,9 @@ public class Brick : MonoBehaviour {
 
         if (timesHit >= maxHits)
         {
-            SimulateWin();
+            breakableCount--;
+            // SimulateWin();
+            levelManager.BricksDestroyed();
             Destroy(gameObject);
         }
         else
@@ -61,7 +67,8 @@ public class Brick : MonoBehaviour {
     {
         Debug.Log("bricks length = " + GameObject.FindObjectsOfType<Brick>().Length);
 
-        if (GameObject.FindObjectsOfType<Brick>().Length == 1)
+        // if (GameObject.FindObjectsOfType<Brick>().Length == 1)
+        if (breakableCount <= 0)
         {
             // levelManager.LoadLevel("Win");
             levelManager.LoadNextLevel();

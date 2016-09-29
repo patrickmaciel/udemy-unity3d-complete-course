@@ -37,4 +37,12 @@ public class LevelManager : MonoBehaviour {
     {
         Application.LoadLevel(Application.loadedLevel + 1);
     }
+
+    public void BricksDestroyed()
+    {
+        if (Brick.breakableCount <= 0)
+        {
+            LoadNextLevel();
+        }
+    }
 }
