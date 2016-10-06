@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Brick : MonoBehaviour {
+public class Brick : MonoBehaviour
+{
 
+    public AudioClip crack;
     public Sprite[] hitSprites = new Sprite[2];
     public static int breakableCount = 0;
 
+    private bool isBreakable;
     private int maxHits;
     private int timesHit;
     private LevelManager levelManager;
     
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+	    isBreakable = this.tag == "Breakable";
         levelManager = GameObject.FindObjectOfType<LevelManager>();
 
         timesHit = 0;
@@ -21,7 +26,7 @@ public class Brick : MonoBehaviour {
             Random.Range(0f, 1f),
             Random.Range(0f, 1f));
 
-        breakableCount += (this.tag == "Breakable") ? 1 : 0;
+        breakableCount += isBreakable ? 1 : 0;
     }
 	
 	// Update is called once per frame
@@ -30,7 +35,8 @@ public class Brick : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (this.tag == "Breakable")
+        AudioSource.PlayClipAtPoint(crack, transform.position, 100f);
+        if (isBreakable)
         {
             HandleHits();
         }
