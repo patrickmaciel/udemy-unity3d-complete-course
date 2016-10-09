@@ -4,12 +4,15 @@ using System.Collections;
 public class Paddle : MonoBehaviour
 {
     public bool autoPlay = false;
+    public float minX, maxX;
     private Ball ball;
 
     // Use this for initialization
     void Start ()
     {
         ball = Object.FindObjectOfType<Ball>();
+        minX = -0.001f;
+        maxX = 13.654f;
     }
     
     // Update is called once per frame
@@ -29,7 +32,7 @@ public class Paddle : MonoBehaviour
         float ballPosInBlocks = ball.transform.position.x;
         Vector3 paddlePosition = gameObject.transform.position;
         gameObject.transform.position = new Vector3(
-            Mathf.Clamp(ballPosInBlocks, 0f, 15f),
+            Mathf.Clamp(ballPosInBlocks - 0.5f, minX, maxX),
             paddlePosition.y,
             paddlePosition.z
         );
@@ -41,7 +44,7 @@ public class Paddle : MonoBehaviour
         Vector3 paddlePosition = gameObject.transform.position;
         gameObject.transform.position = new Vector3(
             // mousePosInBlocks,
-            Mathf.Clamp(mousePosInBlocks, 0f, 15f),
+            Mathf.Clamp(mousePosInBlocks - 0.5f, minX, maxX),
             paddlePosition.y,
             paddlePosition.z
         );
