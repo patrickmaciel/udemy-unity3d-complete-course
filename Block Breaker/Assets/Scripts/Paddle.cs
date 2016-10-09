@@ -32,7 +32,7 @@ public class Paddle : MonoBehaviour
         float ballPosInBlocks = ball.transform.position.x;
         Vector3 paddlePosition = gameObject.transform.position;
         gameObject.transform.position = new Vector3(
-            Mathf.Clamp(ballPosInBlocks - 0.5f, minX, maxX),
+            Mathf.Clamp(ballPosInBlocks - 1.15f, minX, maxX),
             paddlePosition.y,
             paddlePosition.z
         );
@@ -44,7 +44,7 @@ public class Paddle : MonoBehaviour
         Vector3 paddlePosition = gameObject.transform.position;
         gameObject.transform.position = new Vector3(
             // mousePosInBlocks,
-            Mathf.Clamp(mousePosInBlocks - 0.5f, minX, maxX),
+            Mathf.Clamp(mousePosInBlocks - 1.15f, minX, maxX),
             paddlePosition.y,
             paddlePosition.z
         );

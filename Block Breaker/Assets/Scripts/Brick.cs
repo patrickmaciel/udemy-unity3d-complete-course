@@ -62,9 +62,13 @@ public class Brick : MonoBehaviour
 
     void LoadSprites()
     {
-        if (hitSprites[timesHit - 1])
+        if (hitSprites[timesHit - 1] != null)
         {
             this.GetComponent<SpriteRenderer>().sprite = hitSprites[timesHit - 1];
+        }
+        else
+        {
+            Debug.LogError("Sprite inexistente para o Brick.");
         }
     }
 
