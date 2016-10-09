@@ -1,3 +1,1 @@
-resources/*.psd
-resources/*.zip
-resources/*.tar.gz
+resources/**
