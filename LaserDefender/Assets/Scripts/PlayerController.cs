@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
     public float projectileSpeed = 5f;
     public float fireRate = 0.2f;
+    public float health = 250f;
+    public AudioClip boom;
+    public AudioClip hitSound;
 
     // Use this for initialization
     void Start()
@@ -24,8 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        // GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y + 0.5f, 0), Quaternion.identity) as GameObject;
-        GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y, 1), Quaternion.identity) as GameObject;
+        GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y + 1f, 1), Quaternion.identity) as GameObject;
         projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed); 
     }
 
@@ -64,4 +66,17 @@ public class PlayerController : MonoBehaviour
         //    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         //}
     }
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		Projectile missile = other.GetComponent<Projectile>();
+		health -= missile.GetDamage();
+        AudioSource.PlayClipAtPoint(hitSound, transform.position, 1f);
+        missile.Hit();
+		if (health <= 0)
+		{
+			AudioSource.PlayClipAtPoint(boom, gameObject.transform.position, 100f);
+			Destroy(gameObject);
+		}
+	}    
 }

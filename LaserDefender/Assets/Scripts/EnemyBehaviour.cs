@@ -4,6 +4,11 @@ using System.Collections;
 public class EnemyBehaviour : MonoBehaviour {
 	public float health = 150f;
 	public AudioClip boom;
+	public AudioClip hitSound;
+	public GameObject projectilePrefab;
+	public float projectileSpeed = 5f;
+	public float firePerSeconds = 0.5f;
+	public float possibility;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +17,17 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		possibility = Time.deltaTime * firePerSeconds;
+		if (Random.value < possibility)
+		{
+			Fire();
+		}
+	}
+
+	void Fire()
+	{
+		GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y - 1f, 0), Quaternion.identity) as GameObject;
+		projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed);
 	}
 
 	/// <summary>
@@ -24,10 +39,10 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		Projectile missile = other.GetComponent<Projectile>();
 		health -= missile.GetDamage();
-
+		AudioSource.PlayClipAtPoint(hitSound, transform.position, 1000f);
+		missile.Hit();
 		if (health <= 0)
 		{
-			missile.Hit();
 			AudioSource.PlayClipAtPoint(boom, gameObject.transform.position, 100f);
 			Destroy(gameObject);
 		}
