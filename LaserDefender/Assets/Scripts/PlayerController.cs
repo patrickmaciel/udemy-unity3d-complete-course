@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     private float speed = 15.0f;
     private float padding = 0.5f;
     private float xmin, xmax;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 5f;
+    public float fireRate = 0.2f;
 
     // Use this for initialization
     void Start()
@@ -19,9 +22,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void Fire()
+    {
+        // GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y + 0.5f, 0), Quaternion.identity) as GameObject;
+        GameObject projectile = Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y, 1), Quaternion.identity) as GameObject;
+        projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed); 
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            InvokeRepeating("Fire", 0.00001f, fireRate);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CancelInvoke("Fire");
+        }
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             //transform.position += new Vector3(-speed * Time.deltaTime, 0, 0);
