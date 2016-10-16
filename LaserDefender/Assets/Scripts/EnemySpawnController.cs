@@ -6,6 +6,7 @@ public class EnemySpawnController : MonoBehaviour
     public GameObject enemyPrefab;
     public float width = 10f;
     public float height = 8f;
+	public float spawnDelay = 1f;
 
     private float speed = 5f;
     private float xmin, xmax;
@@ -20,7 +21,7 @@ public class EnemySpawnController : MonoBehaviour
 	    xmin = leftBoundry.x;
 	    xmax = rightBoundry.x;
 
-	    SpawnEnemies();
+	    SpawnEnemyOneByOne();
 	}
 
 	void SpawnEnemies()
@@ -30,6 +31,21 @@ public class EnemySpawnController : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
             enemy.transform.parent = child;
         }
+	}
+
+	void SpawnEnemyOneByOne()
+	{
+		var freePosition = NextFreePosition();
+		if (freePosition)
+		{
+			GameObject enemy = Instantiate(enemyPrefab, freePosition.position, Quaternion.identity) as GameObject;
+            enemy.transform.parent = freePosition;
+		}
+
+		if (NextFreePosition())
+		{
+			Invoke("SpawnEnemyOneByOne", spawnDelay);
+		}
 	}
 	
 	// Update is called once per frame
@@ -53,7 +69,7 @@ public class EnemySpawnController : MonoBehaviour
 
 		if (AreAllEnemiesDead())
 		{
-			SpawnEnemies();
+			SpawnEnemyOneByOne();
 		}
 	}
 
@@ -69,6 +85,19 @@ public class EnemySpawnController : MonoBehaviour
 
 		return true;
 	}
+
+	Transform NextFreePosition()
+	{
+		foreach (Transform childPosition in transform)
+		{
+			if (childPosition.childCount == 0)
+			{
+				return childPosition;
+			}
+		}
+
+		return null;
+	}	
 
     void OnDrawGizmos()
     {
