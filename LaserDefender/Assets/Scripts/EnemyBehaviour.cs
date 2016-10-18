@@ -9,10 +9,12 @@ public class EnemyBehaviour : MonoBehaviour {
 	public float projectileSpeed = 5f;
 	public float firePerSeconds = 0.5f;
 	public float possibility;
+	public int scoreValue = 150;
+	public ScoreKeeper scoreKeeper;
 
 	// Use this for initialization
 	void Start () {
-	
+		scoreKeeper = GameObject.Find("Score").GetComponent<ScoreKeeper>();
 	}
 	
 	// Update is called once per frame
@@ -45,6 +47,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		{
 			AudioSource.PlayClipAtPoint(boom, gameObject.transform.position, 100f);
 			Destroy(gameObject);
+			scoreKeeper.Score(scoreValue);
 		}
 	}
 }
