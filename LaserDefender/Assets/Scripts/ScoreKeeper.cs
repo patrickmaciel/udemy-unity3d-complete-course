@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ScoreKeeper : MonoBehaviour {
-	public int score;
+	public static int score;
 	public Text scoreKeeper;
 
 	// Use this for initialization
@@ -19,10 +19,9 @@ public class ScoreKeeper : MonoBehaviour {
 		scoreKeeper.text = score.ToString();
 	}
 
-	public void Reset()
+	public static void Reset()
 	{
 		score = 0;
-		scoreKeeper.text = score.ToString();
 	} 
 	
 	// Update is called once per frame

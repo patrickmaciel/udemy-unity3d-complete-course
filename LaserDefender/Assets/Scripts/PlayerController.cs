@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour
 		{
 			AudioSource.PlayClipAtPoint(boom, gameObject.transform.position, 100f);
 			Destroy(gameObject);
+            LevelManager lm = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+            lm.LoadLevel("Win");
 		}
 	}    
 }
