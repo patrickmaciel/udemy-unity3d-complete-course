@@ -32,4 +32,9 @@ public class PersistentMusicPlayer : MonoBehaviour {
 			audioSource.Play();
 		}
 	}
+
+	public void SetVolume(float volume)
+	{
+		audioSource.volume = volume;
+	}
 }

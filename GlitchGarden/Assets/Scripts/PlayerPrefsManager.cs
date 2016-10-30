@@ -64,7 +64,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 
 	public static void SetDifficult(float difficult)
 	{
-		if (difficult >= 0f && difficult <= 1f)
+		if (difficult >= 1f && difficult <= 3f)
 		{
 			PlayerPrefs.SetFloat(DIFFICULT_KEY, difficult);
 		}
