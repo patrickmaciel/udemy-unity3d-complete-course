@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerPrefsManager : MonoBehaviour {
 	const string MASTER_VOLUME_KEY = "master_volume";
-	const string LEVEL_KEY = "level";
-	const string DIFFICULT_KEY = "difficult";
+	const string LEVEL_KEY = "level_unlocked_";
+	const string DIFFICULT_KEY = "difficulty";
 
 	// Use this for initialization
 	void Start () {
@@ -40,39 +40,37 @@ public class PlayerPrefsManager : MonoBehaviour {
 		}
 	}
 
-	public static void SetLevel(float level)
+	public static void UnlockLevel(float level)
 	{
-		if (level > 0f)
+		if (level > Application.levelCount - 1)
 		{
-			PlayerPrefs.SetFloat(LEVEL_KEY, level);
+			PlayerPrefs.SetFloat(LEVEL_KEY + level, 1); // 1 is unlocked
 		}
 		else
 		{
-			print("level <= 0f");
+			print("Unknown level");
 		}
 	}
 
-	public static float GetLevel()
+	public static bool isUnlockedLevel(float level)
 	{
-		if (PlayerPrefs.HasKey(LEVEL_KEY))
+		if (PlayerPrefs.HasKey(LEVEL_KEY) && (level > Application.levelCount - 1))
 		{
-			return PlayerPrefs.GetFloat(LEVEL_KEY);
+			return true;
 		}
-		else
-		{
-			return 0f;
-		}
+
+		return false;
 	}
 
 	public static void SetDifficult(float difficult)
 	{
-		if (difficult > 0f)
+		if (difficult >= 0f && difficult <= 1f)
 		{
 			PlayerPrefs.SetFloat(DIFFICULT_KEY, difficult);
 		}
 		else
 		{
-			print("difficult <= 0f");
+			print("Unknown difficult ");
 		}
 	}
 
